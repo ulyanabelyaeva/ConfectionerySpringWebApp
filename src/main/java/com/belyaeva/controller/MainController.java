@@ -1,23 +1,53 @@
 package com.belyaeva.controller;
 
 import com.belyaeva.entity.Product;
-import org.apache.el.stream.Stream;
+import com.belyaeva.entity.ProductType;
+import com.belyaeva.services.ProductService;
+import com.belyaeva.services.ProductTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 public class MainController {
 
+    @Autowired
+    private ProductTypeService productTypeService;
+
+    @Autowired
+    private ProductService productService;
+
     @GetMapping("/")
-    public List<Product> getProducts(){
-        List<Product> products = new ArrayList<>();
-        products.add(new Product(1L, "Тирамису", "Торт", 600));
-        products.add(new Product(2L, "Панчо", "Торт", 600));
-        System.out.println("Данные отправлены");
-        return products;
+    public String getMainPage(){
+        return "index";
+    }
+
+    @GetMapping("/catalog")
+    public String getProducts(Model model){
+        List<ProductType> productTypeList = productTypeService.getProductTypeList();
+        List<Product> productList = productService.getAllProducts();
+        model.addAttribute("productTypes", productTypeList);
+        model.addAttribute("products", productList);
+        return "catalog";
+    }
+
+    @GetMapping("/catalog/{id}")
+    public String getProductByProductTypeId(@PathVariable("id") Long id, Model model){
+        List<Product> products = productService.getProductByProductTypeId(id);
+        model.addAttribute("products", products);
+
+        List<ProductType> productTypeList = productTypeService.getProductTypeList();
+        model.addAttribute("productTypes", productTypeList);
+        return "catalog";
+    }
+
+    @GetMapping("/catalog/catalog/{id}")
+    public String redirectCatalog(@PathVariable("id") Long id){
+        return "redirect:/catalog/{id}";
     }
 }

@@ -1,0 +1,169 @@
+*{
+    box-sizing:border-box;
+    padding:0;
+    margin:0;
+}
+
+body, html{
+    height: 100%;
+    width: 100%;
+    font-family: 'Kalam', cursive;
+}
+
+.wrapper{
+    width: 100%;
+    height: 100%;
+    background-color: #F7DBFF;
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    padding: 20px 0px;
+    display: flex;
+    align-items: center;
+}
+
+header img{
+    width: 50px;
+    height: 50px;
+}
+
+.separator_image{
+    width: 100%;
+    background-image: url('../image/cake_image3.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 30px;
+    flex: 1 1 auto;
+}
+
+button{
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.separator_image button{
+    background-color: #F7DBFF;
+    padding: 20px;
+    border-radius: 20px;
+    border: 2px solid #f2cbfd;
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+.separator_image button:hover{
+    background-color: #f2cbfd;
+}
+
+.block1{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 50%;
+    padding-left:30px;
+}
+
+.title{
+    padding-left: 15px; 
+    font-size: 25px;
+}
+
+.block2{
+    padding-top: 2px;
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+main{
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.mini_title{
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.menu{
+    width: 15%;
+    border-radius: 20px;
+    background-color: #f6e7fa;
+    margin: 0px 20px;
+}
+
+.menu .item{
+    padding: 5px 15px;
+    font-family: 'Kalam', cursive;
+    font-size: 22px;
+    border-bottom: 2px solid #F7DBFF;
+}
+
+.btn_item{
+    width: 100%;
+    text-align: left;
+}
+
+.btn_item:hover{
+    background-color: #BAD7DF;
+}
+
+.content{
+    width: 85%;
+    border-radius: 20px;
+    background-color: #f6e7fa;
+    margin: 0px 20px;
+}
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card{
+    padding: 20px;
+    text-align: center;
+}
+
+.card_img{
+    background-size: cover;
+    background-position: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+}
+
+.price{
+    font-size: 20px;
+}
+
+.card img{
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+}
+
+footer{
+    padding: 20px;
+}

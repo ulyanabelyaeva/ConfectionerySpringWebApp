@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кондитерская</title>
+</head>
+<body>
+<div class="wrapper">
+    <header>
+
+    </header>
+    <main>
+        <div class="items">
+            <div class="item" th:each = "product : ${products}">
+                <div class="item_name" th:text="${product.getName()}">Название</div>
+                <div class="item_type" th:text="${product.getType()}">Тип</div>
+                <div class="item_price" th:text="${product.getPrice()}">Цена</div>
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+</div>
+</body>
+</html>

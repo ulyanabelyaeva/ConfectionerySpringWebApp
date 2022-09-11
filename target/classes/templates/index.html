@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="\image\cake.svg"/>
+    <link rel="stylesheet" href="/styles/index.css">
+    <title>Кондитерская</title>
+</head>
+<body>
+<div class="wrapper">
+
+    <header>
+        <div class="block1">
+            <div><img src="image/cake.svg"></div>
+            <div class="title">Кондитерская</div>
+        </div>
+        <div class="block2"><button><img src="image\cart2.svg"></button></div>
+    </header>
+    <div class="separator_image">
+        <button><a th:href="@{/catalog}">Перейти в каталог</a></button>
+    </div>
+    <footer>
+        Контакты
+    </footer>
+</div>
+</body>
+</html>
