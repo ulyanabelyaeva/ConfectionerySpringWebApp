@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="\image\cake.svg"/>
+    <link rel="stylesheet" href="/styles/null.css">
     <link rel="stylesheet" href="/styles/index.css">
     <title>Кондитерская</title>
 </head>
@@ -13,14 +14,22 @@
 
     <header>
         <div class="block1">
-            <div><img src="image/cake.svg"></div>
-            <div class="title">Кондитерская</div>
+            <div><a th:href="@{/catalog}"><img src="image/cake.svg"></a></div>
+            <div class="title"><a th:href="@{/catalog}">Кондитерская</a></div>
         </div>
-        <div class="block2"><button><img src="image\cart2.svg"></button></div>
+        <div class="block2">
+            <a th:href="@{/login}">
+                <button class="btn_enter">Войти</button>
+            </a>
+        </div>
     </header>
-    <div class="separator_image">
-        <button><a th:href="@{/catalog}">Перейти в каталог</a></button>
-    </div>
+
+    <main>
+        <div class="separator_image">
+            <button><a th:href="@{/catalog}">Перейти в каталог</a></button>
+        </div>
+    </main>
+
     <footer>
         Контакты
     </footer>

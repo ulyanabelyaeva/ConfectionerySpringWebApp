@@ -2,8 +2,10 @@ package com.belyaeva.controller;
 
 import com.belyaeva.entity.Product;
 import com.belyaeva.entity.ProductType;
+import com.belyaeva.entity.User;
 import com.belyaeva.services.ProductService;
 import com.belyaeva.services.ProductTypeService;
+import com.belyaeva.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +35,7 @@ public class MainController {
         List<Product> productList = productService.getAllProducts();
         model.addAttribute("productTypes", productTypeList);
         model.addAttribute("products", productList);
+
         return "catalog";
     }
 
@@ -50,4 +53,5 @@ public class MainController {
     public String redirectCatalog(@PathVariable("id") Long id){
         return "redirect:/catalog/{id}";
     }
+
 }

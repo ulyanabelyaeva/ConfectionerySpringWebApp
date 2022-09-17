@@ -1,27 +1,107 @@
 package com.belyaeva.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
+@Entity
+@Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Builder
+public class User implements UserDetails {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
+    @Column(name = "phone")
+    private String phone;
 
-    private String firstName;
-
+    @Column(name = "password")
     private String password;
 
-    private List<Product> cart;
+    @Transient
+    private String passwordConfirm;
 
-    private List<List<Product>> orders;
+    @Column(name = "firstName")
+    private String firstName;
+
+    @OneToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
+    @Transient
+    private List<Cart> orders;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id", referencedColumnName = "id"))
+    private Set<Role> roles;
+
+    public User(String phone, String password, String passwordConfirm, String firstName) {
+        this.phone = phone;
+        this.password = password;
+        this.firstName = firstName;
+        this.passwordConfirm = passwordConfirm;
+        cart = new Cart();
+        orders = new ArrayList<>();
+    }
+
+    public User(String phone, String password, String firstName) {
+        this.phone = phone;
+        this.password = password;
+        this.firstName = firstName;
+        cart = new Cart();
+        orders = new ArrayList<>();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return phone;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 }

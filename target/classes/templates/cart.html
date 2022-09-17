@@ -4,14 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="\image\cake.svg"/>
+    <link rel="stylesheet" href="\styles\null.css">
+    <link rel="stylesheet" href="\styles\cart.css">
     <title>Кондитерская</title>
 </head>
 <body>
 <div class="wrapper">
-    <header>
 
+    <header>
+        <div class="block1">
+            <div><a th:href="@{/catalog}"><img src="image/cake.svg"></a></div>
+            <div class="title"><a th:href="@{/catalog}">Кондитерская</a></div>
+        </div>
+        <div class="block2">
+            <a th:href="@{/login}">
+                <button class="btn_enter">Войти</button>
+            </a>
+            <a th:href="@{/cart}">
+                <button class="btn_cart_header"></button>
+            </a>
+        </div>
     </header>
-    <main>
+    <!--<main>
         <div class="items">
             <div class="item" th:each = "product : ${products}">
                 <div class="item_name" th:text="${product.getName()}">Название</div>
@@ -19,9 +34,9 @@
                 <div class="item_price" th:text="${product.getPrice()}">Цена</div>
             </div>
         </div>
-    </main>
+    </main>-->
     <footer>
-
+        Контакты
     </footer>
 </div>
 </body>

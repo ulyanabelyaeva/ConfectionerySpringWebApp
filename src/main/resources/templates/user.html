@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="\image\cake.svg"/>
-    <link rel="stylesheet" href="/styles/null.css">
-    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="\styles\null.css">
+    <link rel="stylesheet" href="\styles\user.css">
     <title>Кондитерская</title>
 </head>
 <body>
@@ -18,18 +18,21 @@
             <div class="title"><a th:href="@{/catalog}">Кондитерская</a></div>
         </div>
         <div class="block2">
-            <a th:href="@{/login}">
-                <button class="btn_enter">Войти</button>
+            <div class="user_name">Имя</div>
+            <a th:href="@{/cart}">
+                <button class="btn_cart_header"></button>
             </a>
         </div>
     </header>
-
-    <main>
-        <div class="separator_image">
-            <button><a th:href="@{/catalog}">Перейти в каталог</a></button>
+    <!--<main>
+        <div class="items">
+            <div class="item" th:each = "product : ${products}">
+                <div class="item_name" th:text="${product.getName()}">Название</div>
+                <div class="item_type" th:text="${product.getType()}">Тип</div>
+                <div class="item_price" th:text="${product.getPrice()}">Цена</div>
+            </div>
         </div>
-    </main>
-
+    </main>-->
     <footer>
         Контакты
     </footer>

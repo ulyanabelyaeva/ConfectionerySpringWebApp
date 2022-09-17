@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="\image\cake.svg"/>
+    <link rel="stylesheet" href="\styles\null.css">
+    <link rel="stylesheet" href="\styles\login.css">
+    <title>Кондитерская</title>
+</head>
+<body>
+<div class="wrapper">
+
+    <header>
+        <div class="block1">
+            <div><a th:href="@{/catalog}"><img src="image/cake.svg"></a></div>
+            <div class="title"><a th:href="@{/catalog}">Кондитерская</a></div>
+        </div>
+    </header>
+    <main>
+        <div class="error" th:text="${session.userError}">Ошибки авторизации</div>
+        <form method="post" th:object="${user}">
+            <label>Имя пользователя</label>
+            <input type="text" name="firstName">
+            <label>Номер телефона</label>
+            <input type="tel" name="phone">
+            <label>Пароль</label>
+            <input type="password" name="password">
+            <label>Подтвердите пароль</label>
+            <input type="password" name="passwordConfirm">
+            <div class="btns">
+                <div class="btn"><button type="submit">Зарегестрироваться</button></div>
+            </div>
+        </form>
+    </main>
+    <footer>
+        Контакты
+    </footer>
+</div>
+</body>
+</html>
