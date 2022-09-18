@@ -35,10 +35,6 @@ public class User implements UserDetails {
     @Column(name = "firstName")
     private String firstName;
 
-    @OneToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
-
     @Transient
     private List<Cart> orders;
 
@@ -53,7 +49,6 @@ public class User implements UserDetails {
         this.password = password;
         this.firstName = firstName;
         this.passwordConfirm = passwordConfirm;
-        cart = new Cart();
         orders = new ArrayList<>();
     }
 
@@ -61,7 +56,6 @@ public class User implements UserDetails {
         this.phone = phone;
         this.password = password;
         this.firstName = firstName;
-        cart = new Cart();
         orders = new ArrayList<>();
     }
 

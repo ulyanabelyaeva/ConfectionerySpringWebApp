@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -53,14 +54,15 @@ public class UserService {
         return false;
     }
 
-    public static User getTempUser(){
+    public User getTempUser(){
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
         Object principal = authentication.getPrincipal();
         if (principal.equals("anonymousUser"))
             return null;
-        else
-            return (User) principal;
+        else{
+            UserDetails userDetails = (UserDetails) principal;
+            return userRepository.findByPhone(userDetails.getUsername());
+        }
     }
-
 }

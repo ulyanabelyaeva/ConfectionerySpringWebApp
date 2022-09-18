@@ -14,25 +14,43 @@
 
     <header>
         <div class="block1">
-            <div><a th:href="@{/catalog}"><img src="image/cake.svg"></a></div>
+            <div><a th:href="@{/catalog}"><img src="/image/cake.svg"></a></div>
             <div class="title"><a th:href="@{/catalog}">Кондитерская</a></div>
         </div>
         <div class="block2">
-            <div class="user_name">Имя</div>
-            <a th:href="@{/cart}">
+            <a th:href="@{/user}">
+                <div class="user_name" th:text="${tempUser.getFirstName()}">Имя</div>
+            </a>
+            <a th:href="@{/user/cart}">
                 <button class="btn_cart_header"></button>
             </a>
         </div>
     </header>
-    <!--<main>
-        <div class="items">
-            <div class="item" th:each = "product : ${products}">
-                <div class="item_name" th:text="${product.getName()}">Название</div>
-                <div class="item_type" th:text="${product.getType()}">Тип</div>
-                <div class="item_price" th:text="${product.getPrice()}">Цена</div>
-            </div>
+    <main>
+        <div class="inf">
+            <div th:text="${'Телефон: ' + tempUser.getPhone()}">Телефон</div>
         </div>
-    </main>-->
+        <div class="block_for_list">
+            <div class="inf">Мои заказы</div>
+            <ul th:each = "order : ${orders}">
+                <li>
+                    <div class="order">
+                        <div th:each = "cartItem : ${order.getItems()}">
+                            <div class="item_order">
+                                <div class="part item_img" th:style="'background-image:url(' + @{'../image/' + ${cartItem.getProduct().getImage()}} + ');'"></div>
+                                <div class="part" th:text="${cartItem.getProduct().getName()}">Название</div>
+                                <div class="part" th:text="${cartItem.getProduct().getPrice() + ' ₽'}">Цена</div>
+                            </div>
+                        </div>
+                        <div class="order_info">
+                            <div class="date" th:text="${order.getDate()}">Дата</div>
+                            <div class="cost" th:text="${'Стоимость: ' + order.getCost() + ' ₽'}">Стоимоть</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </main>
     <footer>
         Контакты
     </footer>

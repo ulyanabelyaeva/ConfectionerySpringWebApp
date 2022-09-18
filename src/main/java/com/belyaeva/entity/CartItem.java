@@ -23,7 +23,12 @@ public class CartItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private Cart cart;
+
+    public CartItem(Product product, Cart cart) {
+        this.product = product;
+        this.cart = cart;
+    }
 }

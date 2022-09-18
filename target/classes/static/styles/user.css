@@ -24,10 +24,13 @@ main{
     font-size: 20px;
     margin-bottom: 20px;
 }
-.item_order img{
+
+.item_img{
     height: 80px;
     width: 80px;
     border-radius: 20px;
+    background-size: cover;
+    background-position: center;
 }
 .part{
     margin-right: 30px;

@@ -14,27 +14,48 @@
 
     <header>
         <div class="block1">
-            <div><a th:href="@{/catalog}"><img src="image/cake.svg"></a></div>
+            <div><a th:href="@{/catalog}"><img src="/image/cake.svg"></a></div>
             <div class="title"><a th:href="@{/catalog}">Кондитерская</a></div>
         </div>
         <div class="block2">
-            <a th:href="@{/login}">
-                <button class="btn_enter">Войти</button>
+            <a th:href="@{/user}">
+                <div class="user_name"><button th:text="${tempUser.getFirstName()}">Имя</button></div>
             </a>
-            <a th:href="@{/cart}">
+            <a th:href="@{/user/cart}">
                 <button class="btn_cart_header"></button>
             </a>
         </div>
     </header>
-    <!--<main>
-        <div class="items">
-            <div class="item" th:each = "product : ${products}">
-                <div class="item_name" th:text="${product.getName()}">Название</div>
-                <div class="item_type" th:text="${product.getType()}">Тип</div>
-                <div class="item_price" th:text="${product.getPrice()}">Цена</div>
-            </div>
+    <main>
+        <div class="block_for_list">
+            <ul>
+                <li>
+                    <div class="order" th:each = "cartItem : ${cart.getItems()}">
+                        <div class="item_order">
+                            <div class="info_item">
+                                <div class="part item_img" th:style="'background-image:url(' + @{'../image/' + ${cartItem.getProduct().getImage()}} + ');'"></div>
+                                <div class="part" th:text="${cartItem.getProduct().getName()}">Название</div>
+                                <div class="part" th:text="${cartItem.getProduct().getPrice()}">Цена</div>
+                            </div>
+                            <div>
+                                <form method="post">
+                                    <button class="btn_del" type="submit" name="btn" th:value="${cartItem.getId()}"></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order_info">
+                        <div class="cost" th:text="'Итого: ' + ${cart.getCost()} + ' ₽'">Стоимость</div>
+                        <div>
+                            <form method="post">
+                                <button type="submit" name="btn" value="pay">Оплатить</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
-    </main>-->
+    </main>
     <footer>
         Контакты
     </footer>

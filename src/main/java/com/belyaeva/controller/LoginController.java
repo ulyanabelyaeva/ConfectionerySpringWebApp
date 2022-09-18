@@ -1,6 +1,8 @@
 package com.belyaeva.controller;
 
+import com.belyaeva.entity.Cart;
 import com.belyaeva.entity.User;
+import com.belyaeva.services.CartService;
 import com.belyaeva.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,9 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/login")
     public String log(Model model) {
@@ -40,6 +45,7 @@ public class LoginController {
             session.setAttribute("userError", "Пользователь с таким телефоном уже существует");
             return "redirect:/reg";
         } else {
+            cartService.addNewCart(new Cart(user, false));
             return "redirect:/user";
         }
 

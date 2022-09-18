@@ -14,32 +14,33 @@
 
     <header>
         <div class="block1">
-            <div><a th:href="@{/catalog}"><img src="image/cake.svg"></a></div>
+            <div><a th:href="@{/catalog}"><img src="/image/cake.svg"></a></div>
             <div class="title"><a th:href="@{/catalog}">Кондитерская</a></div>
         </div>
         <div class="block2">
             <a th:href="@{/login}">
-                <div sec:authorize access="isAuthenticated()"><button class="btn_enter">Войти</button></div>
+                <div sec:authorize="!isAuthenticated()"><button class="btn_enter">Войти</button></div>
             </a>
             <a th:href="@{/user}">
-                <div sec:authorize access="!isAuthenticated()"><button class="btn_name" th:text="${user.getFirstName()}">Имя</button></div>
+                <div sec:authorize="isAuthenticated()"><button class="btn_name" th:text="${tempUser.getFirstName()}">Имя</button></div>
             </a>
-            <a th:href="@{/cart}">
+            <a th:href="@{/user/cart}">
                 <button class="btn_cart_header"></button>
             </a>
         </div>
     </header>
 
     <div class="mini_title">Десерты</div>
+    <div class="error_cart" th:text="${session.error}">Добавление в корзину неавторизованным пользователем</div>
     <main>
         <div class="menu">
             <div th:each="productType : ${productTypes}">
                 <button class="btn_item">
-                    <div class="item" th:text="${productType.getName()}">
-                        <a th:href="@{catalog/{id}(id=${productType.getId()})}">
+                    <a th:href="@{/catalog/{id}(id=${productType.getId()})}">
+                        <div class="item" th:text="${productType.getName()}">
                             Элемент меню
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </button>
             </div>
         </div>
@@ -47,13 +48,15 @@
         <div class="content">
             <div class="cards">
                 <div class="card" th:each="product : ${products}">
-                    <div class="card_img" th:style="'background-image:url('+ @{${product.getImage()}} +');'"></div>
+                    <div class="card_img" th:style="'background-image:url(' + @{'../image/' + ${product.getImage()}} + ');'"></div>
                     <div class="down_card">
                         <div class="card_info">
                             <div th:text="${product.getName()}">Название десерты</div>
                             <div th:text="'Цена: ' + ${product.getPrice()} + ' ₽'" class="price">Цена</div>
                         </div>
-                        <button class="btn_cart"></button>
+                        <form method="post">
+                            <button type="submit" class="btn_cart" name="btn" th:value="${product.getId()}"></button>
+                        </form>
                     </div>
                 </div>
             </div>
