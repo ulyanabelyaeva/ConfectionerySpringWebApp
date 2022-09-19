@@ -9,6 +9,7 @@ insert into `product_type` (name) values ("Торты");
 insert into `product_type` (name) values ("Пироженые");
 insert into `product_type` (name) values ("Капкейки");
 insert into `product_type` (name) values ("Макаронсы");
+insert into `product_type` (name) values ("Наборы");
 
 Скрипт 2:
 insert into `product` (image, name, price, product_type_id) values ("cake11.jpg", "Бенто торт с надписью", 1500, 2);
