@@ -33,7 +33,7 @@ public class Cart {
     @Column(name = "date")
     private String date;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
     private List<CartItem> items;
     public Cart(User user, boolean status) {
         this.user = user;

@@ -46,7 +46,7 @@ public class LoginController {
             return "redirect:/reg";
         } else {
             cartService.addNewCart(new Cart(user, false));
-            return "redirect:/user";
+            return "redirect:/login";
         }
 
     }
