@@ -21,10 +21,13 @@
             <a th:href="@{/login}">
                 <div sec:authorize="!isAuthenticated()"><button class="btn_enter">Войти</button></div>
             </a>
-            <a th:href="@{/user}">
+            <a sec:authorize="hasRole('USER')" th:href="@{/user}">
                 <div sec:authorize="isAuthenticated()"><button class="btn_name" th:text="${tempUser.getFirstName()}">Имя</button></div>
             </a>
-            <a th:href="@{/user/cart}">
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}">
+                <div sec:authorize="isAuthenticated()"><button class="btn_name" th:text="${tempUser.getFirstName()}">Администратор</button></div>
+            </a>
+            <a sec:authorize="hasRole('USER')" th:href="@{/user/cart}">
                 <button class="btn_cart_header"></button>
             </a>
         </div>

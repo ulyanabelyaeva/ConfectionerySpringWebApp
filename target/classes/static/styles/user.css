@@ -14,8 +14,11 @@ main{
 }
 
 .inf{
+    width: 100%;
     font-size: 25px;
     padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .item_order{
@@ -58,6 +61,25 @@ li{
     margin-bottom: 30px;
 }
 
+.order_unready{
+    background-color: #f496af;
+}
+
 ul{
     width: 80%;
+}
+
+.inf button{
+    margin-left: 20px;
+    padding: 5px 10px;
+}
+.inf button:hover{
+    background-color: #92b0b8;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.price_btn{
+    display: flex;
+    align-items: center;
 }

@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="\image\cake.svg"/>
     <link rel="stylesheet" href="\styles\null.css">
     <link rel="stylesheet" href="\styles\user.css">
+    <script src="\js\script.js"></script>
     <title>Кондитерская</title>
 </head>
 <body>
@@ -29,12 +30,15 @@
     <main>
         <div class="inf">
             <div th:text="${'Телефон: ' + tempUser.getPhone()}">Телефон</div>
+            <a th:href="@{/logout}">
+                <button class="user_name">Выйти из аккаунта</button>
+            </a>
         </div>
         <div class="block_for_list">
             <div class="inf">Мои заказы</div>
             <ul th:each = "order : ${orders}">
-                <li>
-                    <div class="order">
+                <li th:class="${order.isReady() ? '' : 'order_unready'}">
+                    <div>
                         <div th:each = "cartItem : ${order.getItems()}">
                             <div class="item_order">
                                 <div class="part item_img" th:style="'background-image:url(' + @{'../image/' + ${cartItem.getProduct().getImage()}} + ');'"></div>

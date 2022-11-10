@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
             <div class="title"><a th:href="@{/catalog}">Кондитерская</a></div>
         </div>
         <div class="block2">
-            <a th:href="@{/login}">
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}">
                 <button class="btn_enter">Войти</button>
             </a>
         </div>

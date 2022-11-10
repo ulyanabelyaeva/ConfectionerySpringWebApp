@@ -27,6 +27,10 @@ main{
     border-bottom: 2px solid #F7DBFF;
 }
 
+.menu .item:last-child{
+    border-bottom: 0px;
+}
+
 .btn_item{
     width: 100%;
     text-align: left;

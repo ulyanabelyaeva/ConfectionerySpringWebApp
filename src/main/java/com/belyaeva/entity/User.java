@@ -35,9 +35,6 @@ public class User implements UserDetails {
     @Column(name = "firstName")
     private String firstName;
 
-    @Transient
-    private List<Cart> orders;
-
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -49,14 +46,12 @@ public class User implements UserDetails {
         this.password = password;
         this.firstName = firstName;
         this.passwordConfirm = passwordConfirm;
-        orders = new ArrayList<>();
     }
 
     public User(String phone, String password, String firstName) {
         this.phone = phone;
         this.password = password;
         this.firstName = firstName;
-        orders = new ArrayList<>();
     }
 
     @Override

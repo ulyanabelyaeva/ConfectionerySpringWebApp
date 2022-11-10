@@ -2,8 +2,8 @@ package com.belyaeva.controller;
 
 import com.belyaeva.entity.Cart;
 import com.belyaeva.entity.User;
-import com.belyaeva.services.CartService;
-import com.belyaeva.services.UserService;
+import com.belyaeva.services.impl.CartServiceImpl;
+import com.belyaeva.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +17,10 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
-    private CartService cartService;
+    private CartServiceImpl cartServiceImpl;
 
     @GetMapping("/login")
     public String log(Model model) {
@@ -41,11 +41,11 @@ public class LoginController {
             return "redirect:/reg";
         }
 
-        if (!userService.saveUser(user)){
+        if (!userServiceImpl.saveUser(user)){
             session.setAttribute("userError", "Пользователь с таким телефоном уже существует");
             return "redirect:/reg";
         } else {
-            cartService.addNewCart(new Cart(user, false));
+            cartServiceImpl.addNewCart(new Cart(user));
             return "redirect:/login";
         }
 

@@ -2,10 +2,10 @@ package com.belyaeva;
 
 import com.belyaeva.entity.CartItem;
 import com.belyaeva.entity.Product;
-import com.belyaeva.services.CartItemService;
-import com.belyaeva.services.CartService;
-import com.belyaeva.services.ProductService;
-import com.belyaeva.services.UserService;
+import com.belyaeva.services.impl.CartItemServiceImpl;
+import com.belyaeva.services.impl.CartServiceImpl;
+import com.belyaeva.services.impl.ProductServiceImpl;
+import com.belyaeva.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +32,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class FunctionTest {
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productServiceImpl;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
-    private CartService cartService;
+    private CartServiceImpl cartServiceImpl;
 
     @Autowired
-    private CartItemService cartItemService;
+    private CartItemServiceImpl cartItemServiceImpl;
     @Autowired
     private MockMvc mockMvc;
 
@@ -57,11 +57,11 @@ public class FunctionTest {
     //добавление товара в корзину
     @Test
     public void addToCart(){
-        int before = cartService.getCartByUserId(userService.getTempUser().getId()).getItems().size();
-        Product product = productService.getProductById(1L);
-        CartItem cartItem = new CartItem(product, cartService.getCartByUserId(userService.getTempUser().getId()));
-        cartItemService.addNewItem(cartItem);
-        int after = cartService.getCartByUserId(userService.getTempUser().getId()).getItems().size();
+        int before = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId()).getItems().size();
+        Product product = productServiceImpl.getProductById(1L);
+        CartItem cartItem = new CartItem(product, cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId()));
+        cartItemServiceImpl.addNewItem(cartItem);
+        int after = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId()).getItems().size();
 
         Assertions.assertSame(before +  1, after);
     }
@@ -69,9 +69,9 @@ public class FunctionTest {
     //оплата заказа
     @Test
     public void payOrder() throws Exception {
-        Product product = productService.getProductById(1L);
-        CartItem cartItem = new CartItem(product, cartService.getCartByUserId(userService.getTempUser().getId()));
-        cartItemService.addNewItem(cartItem);
+        Product product = productServiceImpl.getProductById(1L);
+        CartItem cartItem = new CartItem(product, cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId()));
+        cartItemServiceImpl.addNewItem(cartItem);
 
         this.mockMvc.perform(post("/user/cart").param("btn", "pay").with(csrf()))
                 .andDo(print())

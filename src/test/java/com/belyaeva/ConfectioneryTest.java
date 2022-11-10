@@ -36,8 +36,8 @@ public class ConfectioneryTest {
                 .andExpect(redirectedUrl("http://localhost/login"));
     }
 
-    //тест на авторизацию пользователя c корректными данными
-    //пользователь после успешной авторизации должен перенаправиться на страницу пользователя
+    //тест на аутентификацию пользователя c корректными данными
+    //пользователь после успешной аутентификации должен перенаправиться на страницу пользователя
     @Test
     @Sql(value = {"/create-user-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(value = {"/create-user-after.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
@@ -48,8 +48,8 @@ public class ConfectioneryTest {
                 .andExpect(redirectedUrl("/user"));
     }
 
-    //тест на авторизацию пользователя c некорректными данными
-    //пользователь после неудавшейся авторизации должен перенаправиться на страницу аутентификации
+    //тест на аутентификацию пользователя c некорректными данными
+    //пользователь после неудавшейся аутентификации должен перенаправиться на страницу аутентификации
     @Test
     public void badLogin() throws Exception {
         this.mockMvc.perform(formLogin().user("89180000000").password("maria"))
@@ -58,7 +58,7 @@ public class ConfectioneryTest {
                 .andExpect(redirectedUrl("/login?error"));
     }
 
-    //тест на регистрацию пользователя с корректными данными
+    //тест на авторизацию пользователя с корректными данными
     @Test
     public void registration() throws Exception {
 
@@ -73,7 +73,7 @@ public class ConfectioneryTest {
                 .andExpect(redirectedUrl("/login"));
     }
 
-    //тест на регистрацию пользователя с некорректными данными
+    //тест на авторизацию пользователя с некорректными данными
     @Test
     public void badRegistration() throws Exception {
 

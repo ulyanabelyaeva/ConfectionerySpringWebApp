@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="\image\cake.svg"/>
+    <link rel="stylesheet" href="\styles\null.css">
+    <link rel="stylesheet" href="\styles\cart.css"/>
+    <link rel="stylesheet" href="\styles\user.css"/>
+    <title>Кондитерская</title>
+</head>
+<body>
+<div class="wrapper">
+
+    <header>
+        <div class="block1">
+            <div><a th:href="@{/catalog}"><img src="/image/cake.svg"></a></div>
+            <div class="title"><a th:href="@{/catalog}">Кондитерская</a></div>
+        </div>
+        <div class="block2">
+            <a th:href="@{/admin}">
+                <div class="user_name" th:text="${tempUser.getFirstName()}">Имя</div>
+            </a>
+        </div>
+    </header>
+    <main>
+        <div class="block_for_list">
+            <div class="inf">Новые заказы</div>
+            <ul th:each = "order : ${orders}">
+                <li>
+                    <div class="order">
+                        <div th:each = "cartItem : ${order.getItems()}">
+                            <div class="item_order">
+                                <div class="part item_img" th:style="'background-image:url(' + @{'../image/' + ${cartItem.getProduct().getImage()}} + ');'"></div>
+                                <div class="part" th:text="${cartItem.getProduct().getName()}">Название</div>
+                                <div class="part" th:text="${cartItem.getProduct().getPrice() + ' ₽'}">Цена</div>
+                            </div>
+                        </div>
+                        <div class="order_info">
+                            <div class="date" th:text="${order.getDate()}">Дата</div>
+                            <div class="price_btn">
+                                <div class="cost" th:text="${'Стоимость: ' + order.getCost() + ' ₽'}">Стоимоть</div>
+                                <div>
+                                    <form method="post">
+                                        <input th:value = "${order.getId()}" name="cartId" type="hidden">
+                                        <button type="submit" name="btn" value="ready">Заказ выполненен</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </main>
+    <footer>
+        Контакты
+    </footer>
+</div>
+</body>
+</html>

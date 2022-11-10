@@ -1,4 +1,4 @@
-package com.belyaeva.services;
+package com.belyaeva.services.impl;
 
 import com.belyaeva.entity.Role;
 import com.belyaeva.entity.User;

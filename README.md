@@ -2,7 +2,8 @@
 Создайте БД в MySQL c именем confectionerydb.
 Запустите проект.
 Запустите следующие скрипты в MySQL.
-Также необходимо зарегистрироваться.
+Зарегистрируйтесь, чтобы войти, как пользователь.
+Чтобы войти, как администратор: 89180000000 admin.
 Для запуска тестов: создайте БД в MySQL c именем confectionerydbtest.
 
 Скрипт 1:
@@ -52,3 +53,8 @@ insert into `product` (image, name, price, product_type_id) values ("set4.jpg", 
 insert into `product` (image, name, price, product_type_id) values ("minicake2.jpg", "Шоколадное пироженое", 150, 4);
 insert into `product` (image, name, price, product_type_id) values ("minicake3.jpg", "Пироженое Наполеон", 150, 4);
 insert into `product` (image, name, price, product_type_id) values ("minicake5.jpg", "Пироженое", 150, 4);
+
+Скрипт 3:
+insert into roles (name) values ('ADMIN');
+insert into users (first_name, password, phone) values ('Администратор', '$2a$12$FJBS1Dd6xGuDSQgY4tpNROZQSy4ds8d2MRyCP5CAwa4TLcrzGo712', '89180000000');
+insert into user_roles (user_id, roles_id) values (3, 3);

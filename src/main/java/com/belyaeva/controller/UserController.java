@@ -1,13 +1,13 @@
 package com.belyaeva.controller;
 
 import com.belyaeva.entity.Cart;
-import com.belyaeva.services.CartService;
+import com.belyaeva.services.impl.CartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 
-import com.belyaeva.services.UserService;
+import com.belyaeva.services.impl.UserServiceImpl;
 
 import java.util.List;
 
@@ -15,15 +15,15 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
-    private CartService cartService;
+    private CartServiceImpl cartServiceImpl;
 
     @GetMapping("/user")
     public String userPage(Model model){
-        model.addAttribute("tempUser", userService.getTempUser());
-        List<Cart> orders = cartService.getOrderList(userService.getTempUser().getId());
+        model.addAttribute("tempUser", userServiceImpl.getTempUser());
+        List<Cart> orders = cartServiceImpl.getOrderList(userServiceImpl.getTempUser().getId());
         model.addAttribute("orders", orders);
         return "user";
     }

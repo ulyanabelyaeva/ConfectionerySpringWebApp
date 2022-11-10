@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/png" href="\image\cake.svg"/>
+    <link rel="stylesheet" href="\styles\null.css"/>
+    <link rel="stylesheet" href="\styles\catalog_admin.css"/>
+    <title>Кондитерская</title>
+</head>
+<body>
+<div class="wrapper">
+
+    <header>
+        <div class="block1">
+            <div><a th:href="@{/admin/catalog}"><img src="/image/cake.svg"/></a></div>
+            <div class="title"><a th:href="@{/admin/catalog}">Кондитерская</a></div>
+        </div>
+        <div class="block2">
+            <a th:href="@{/admin}">
+                <div><button class="btn_name" th:text="${tempUser.getFirstName()}">Администратор</button></div>
+            </a>
+        </div>
+    </header>
+
+    <div class="mini_title">Управление товарами</div>
+    <main>
+        <div class="section1">
+            <div class="menu">
+                <div  th:each="productType : ${productTypes}">
+                    <button class="btn_item">
+                        <a th:href="@{/admin/catalog/{id}(id=${productType.getId()})}">
+                            <div class="item" th:text="${productType.getName()}">
+                                Элемент меню
+                            </div>
+                        </a>
+                    </button>
+                </div>
+            </div>
+    
+            <div class="content">
+                <div class="cards" id="cards">
+                    <div class="card" th:each="product : ${products}">
+                        <div class="card_img" th:style="'background-image:url(' + @{'/image/' + ${product.getImage()}} + ');'"></div>
+                        <div class="down_card">
+                            <div class="card_info">
+                                <div th:text="${product.getName()}">Название десерты</div>
+                                <div th:text="'Цена: ' + ${product.getPrice()} + ' ₽'" class="price">Цена</div>
+                            </div>
+                            <div class="btns">
+                                <form th:method="get">
+                                    <button type="submit" name="id" th:value="${product.getId()}">Редактировать</button>
+                                </form>
+                                <form th:method="delete">
+                                    <button type="submit" name="btn_del" th:value="${product.getId()}">Удалить</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section2">
+            <div class="add">
+                <div class="mini_title">Добавление нового товара</div>
+                <form class="add_form" th:method="post" th:if= "${put_product == null}" th:object="${add_product}" enctype="multipart/form-data">
+                    <label>Изображение: </label>
+                    <input class="input_image" th:field="*{icon}" type="file" accept=".jpg, .png .jpeg" name="icon">
+                    <label>Название товара: </label>
+                    <input type="text" th:field="*{name}" name="name">
+                    <label>Цена: </label>
+                    <input type="number" th:field="*{price}" name="price">
+                    <label>Тип товара: </label>
+                    <select name="nameProductType" th:field="*{nameProductType}">
+                        <option value="Бенто торты">Бенто торты</option>
+                        <option value="Торты">Торты</option>
+                        <option value="Пироженые">Пироженые</option>
+                        <option value="Капкейки">Капкейки</option>
+                        <option value="Макаронсы">Макаронсы</option>
+                    </select>
+                    <div class="btns">
+                        <div class="btn"><button type="submit">Готово!</button></div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="add">
+                <div class="mini_title">Редактирование товара</div>
+                <form class="add_form" th:method="put" th:if= "${put_product != null}" th:object="${put_product}" enctype="multipart/form-data">
+                    <div class="img_center">
+                        <img class="img1" th:src="${'/image/' + put_product.getImage()}" width="200px" height="200px">
+                    </div>
+                    <label>Изображение: </label>
+                    <input class="input_image" th:field="*{icon}" type="file" accept=".jpg, .png .jpeg" name="icon">
+                    <label>Название товара: </label>
+                    <input type="text" th:field="*{name}" name="name">
+                    <label>Цена: </label>
+                    <input type="number" th:field="*{price}" name="price">
+                    <label>Тип товара: </label>
+                    <select name="nameProductType" th:field="*{nameProductType}">
+                        <option value="Бенто торты">Бенто торты</option>
+                        <option value="Торты">Торты</option>
+                        <option value="Пироженые">Пироженые</option>
+                        <option value="Капкейки">Капкейки</option>
+                        <option value="Макаронсы">Макаронсы</option>
+                    </select>
+                    <div class="btns">
+                        <div class="btn"><button type="submit">Готово!</button></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </main>
+    <footer>
+        Контакты
+    </footer>
+
+</div>
+</body>
+</html>

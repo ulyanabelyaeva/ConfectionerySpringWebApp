@@ -1,10 +1,7 @@
 package com.belyaeva.controller;
 
-import com.belyaeva.entity.Cart;
-import com.belyaeva.entity.CartItem;
-import com.belyaeva.entity.Product;
-import com.belyaeva.entity.ProductType;
-import com.belyaeva.services.*;
+import com.belyaeva.entity.*;
+import com.belyaeva.services.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,19 +17,19 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    private ProductTypeService productTypeService;
+    private ProductTypeServiceImpl productTypeServiceImpl;
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productServiceImpl;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
-    private CartItemService cartItemService;
+    private CartItemServiceImpl cartItemServiceImpl;
 
     @Autowired
-    private CartService cartService;
+    private CartServiceImpl cartServiceImpl;
 
     @GetMapping("/")
     public String getMainPage(){
@@ -41,26 +38,42 @@ public class MainController {
 
     @GetMapping("/catalog")
     public String getProducts(Model model){
-        List<ProductType> productTypeList = productTypeService.getProductTypeList();
-        List<Product> productList = productService.getAllProducts();
+        List<ProductType> productTypeList = productTypeServiceImpl.getProductTypeList();
+        List<Product> productList = productServiceImpl.getAllProducts();
 
-        model.addAttribute("tempUser", userService.getTempUser());
+        User user = userServiceImpl.getTempUser();
+        model.addAttribute("tempUser", user);
         model.addAttribute("productTypes", productTypeList);
         model.addAttribute("products", productList);
 
-        return "catalog";
+        if (user != null){
+            Role role = user.getRoles().stream().filter(r -> r.getName().equals("USER")).findFirst().orElse(null);
+            if (role != null)
+                return "catalog";
+            else
+                return "redirect:/admin/catalog";
+        } else
+            return "catalog";
     }
 
     @GetMapping("/catalog/{id}")
     public String getProductByProductTypeId(@PathVariable("id") Long id, Model model){
 
-        List<Product> products = productService.getProductByProductTypeId(id);
+        User user = userServiceImpl.getTempUser();
+        List<Product> products = productServiceImpl.getProductByProductTypeId(id);
         model.addAttribute("products", products);
-        List<ProductType> productTypeList = productTypeService.getProductTypeList();
+        List<ProductType> productTypeList = productTypeServiceImpl.getProductTypeList();
         model.addAttribute("productTypes", productTypeList);
-        model.addAttribute("tempUser", userService.getTempUser());
+        model.addAttribute("tempUser", user);
 
-        return "catalog";
+        if (user != null){
+            Role role = user.getRoles().stream().filter(r -> r.getName().equals("USER")).findFirst().orElse(null);
+            if (role != null)
+                return "catalog";
+            else
+                return "redirect:/admin/catalog/{id}";
+        } else
+            return "catalog";
     }
 
     @GetMapping("/catalog/catalog/{id}")
@@ -72,59 +85,46 @@ public class MainController {
     public String addToCart(@RequestParam("btn") String btn, @PathVariable("id") Long id, Model model, HttpSession session){
 
         Long idProduct = Long.parseLong(btn);
-        if (userService.getTempUser() == null){
+        if (userServiceImpl.getTempUser() == null){
             session.setAttribute("error", "Чтобы добавлять товары в корзину необходимо авторизоваться");
-
-            List<Product> products = productService.getProductByProductTypeId(id);
-            model.addAttribute("products", products);
-            List<ProductType> productTypeList = productTypeService.getProductTypeList();
-            model.addAttribute("productTypes", productTypeList);
-
-            return "/catalog/{id}";
+            return "redirect:/catalog/{id}";
         }
 
-        //добавление в корзину
-        Product product = productService.getProductById(idProduct);
-        Cart cart = cartService.getCartByUserId(userService.getTempUser().getId());
+        //add to cart
+        Product product = productServiceImpl.getProductById(idProduct);
+        Cart cart = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId());
         cart.setCost(cart.getCost() + product.getPrice());
         CartItem cartItem = new CartItem(product, cart);
-        cartItemService.addNewItem(cartItem);
+        cartItemServiceImpl.addNewItem(cartItem);
 
-        //отображаемые данные
-        List<Product> products = productService.getProductByProductTypeId(id);
-        model.addAttribute("products", products);
-        List<ProductType> productTypeList = productTypeService.getProductTypeList();
-        model.addAttribute("productTypes", productTypeList);
-        model.addAttribute("tempUser", userService.getTempUser());
-
-        return "/catalog";
+        return "redirect:/catalog";
     }
 
     @PostMapping("/catalog")
     public String addToCart2(@RequestParam("btn") String btn, Model model, HttpSession session){
 
         Long idProduct = Long.parseLong(btn);
-        if (userService.getTempUser() == null){
+        if (userServiceImpl.getTempUser() == null){
             session.setAttribute("error", "Чтобы добавлять товары в корзину необходимо авторизоваться");
 
-            List<ProductType> productTypeList = productTypeService.getProductTypeList();
-            List<Product> productList = productService.getAllProducts();
+            List<ProductType> productTypeList = productTypeServiceImpl.getProductTypeList();
+            List<Product> productList = productServiceImpl.getAllProducts();
             model.addAttribute("productTypes", productTypeList);
             model.addAttribute("products", productList);
 
             return "/catalog";
         }
 
-        Product product = productService.getProductById(idProduct);
-        Cart cart = cartService.getCartByUserId(userService.getTempUser().getId());
+        Product product = productServiceImpl.getProductById(idProduct);
+        Cart cart = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId());
         cart.setCost(cart.getCost() + product.getPrice());
         CartItem cartItem = new CartItem(product, cart);
-        cartItemService.addNewItem(cartItem);
+        cartItemServiceImpl.addNewItem(cartItem);
 
 
-        List<ProductType> productTypeList = productTypeService.getProductTypeList();
-        List<Product> productList = productService.getAllProducts();
-        model.addAttribute("tempUser", userService.getTempUser());
+        List<ProductType> productTypeList = productTypeServiceImpl.getProductTypeList();
+        List<Product> productList = productServiceImpl.getAllProducts();
+        model.addAttribute("tempUser", userServiceImpl.getTempUser());
         model.addAttribute("productTypes", productTypeList);
         model.addAttribute("products", productList);
 

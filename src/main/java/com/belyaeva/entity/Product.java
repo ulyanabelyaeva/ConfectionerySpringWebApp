@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.File;
 
 @Getter
 @Setter
@@ -32,4 +34,9 @@ public class Product {
     @Column(name = "image")
     private String image;
 
+    @Transient
+    private String nameProductType;
+
+    @Transient
+    private MultipartFile icon;
 }

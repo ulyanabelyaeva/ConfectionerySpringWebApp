@@ -27,6 +27,9 @@ public class Cart {
     @Column(name = "status")
     private boolean status;
 
+    @Column(name = "ready")
+    private boolean ready;
+
     @Column(name = "cost")
     private int cost;
 
@@ -35,9 +38,10 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
     private List<CartItem> items;
-    public Cart(User user, boolean status) {
+    public Cart(User user) {
         this.user = user;
-        this.status = status;
+        this.status = false;
+        this.ready = false;
         this.cost = 0;
     }
 }
