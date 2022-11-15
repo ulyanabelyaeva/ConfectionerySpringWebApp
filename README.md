@@ -53,6 +53,7 @@ insert into `product` (image, name, price, product_type_id) values ("set4.jpg", 
 insert into `product` (image, name, price, product_type_id) values ("minicake2.jpg", "Шоколадное пироженое", 150, 4);
 insert into `product` (image, name, price, product_type_id) values ("minicake3.jpg", "Пироженое Наполеон", 150, 4);
 insert into `product` (image, name, price, product_type_id) values ("minicake5.jpg", "Пироженое", 150, 4);
+update product set status = true
 
 Скрипт 3:
 insert into roles (name) values ('ADMIN');

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -20,14 +21,14 @@ public class ProductServiceImpl implements ProductService {
     private ProductTypeServiceImpl productTypeServiceImpl;
 
     public List<Product> getAllProducts(){
-        return productRepository.findAll();
+        return productRepository.findAll().stream().filter(Product::isStatus).collect(Collectors.toList());
     }
     public List<Product> getProductByProductTypeId(Long id){
         List<Product> products;
         if (id == 1){
-            products = productRepository.findAll();
+            products = getAllProducts();
         } else {
-            products = productRepository.findAllByProductTypeId(id);
+            products = productRepository.findAllByProductTypeId(id).stream().filter(Product::isStatus).collect(Collectors.toList());
         }
         return products;
     }
@@ -52,6 +53,7 @@ public class ProductServiceImpl implements ProductService {
     public Product addNewProduct(Product product){
         createImage(product);
         product.setProductType(productTypeServiceImpl.getProductTypeByName(product.getNameProductType()));
+        product.setStatus(true);
         return productRepository.save(product);
     }
 
@@ -63,11 +65,14 @@ public class ProductServiceImpl implements ProductService {
             createImage(product);
         }
         product.setProductType(productTypeServiceImpl.getProductTypeByName(product.getNameProductType()));
+        product.setStatus(true);
         return productRepository.save(product);
     }
 
     public void deleteProduct(Long id){
-        productRepository.deleteById(id);
+        Product product = productRepository.findById(id).orElse(null);
+        product.setStatus(false);
+        productRepository.save(product);
     }
 
 }

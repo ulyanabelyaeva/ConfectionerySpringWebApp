@@ -9,6 +9,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import java.io.File;
 
+
+/**
+ * status - delete product from catalog
+ * */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -33,6 +37,9 @@ public class Product {
 
     @Column(name = "image")
     private String image;
+
+    @Column(name = "status")
+    private boolean status;
 
     @Transient
     private String nameProductType;

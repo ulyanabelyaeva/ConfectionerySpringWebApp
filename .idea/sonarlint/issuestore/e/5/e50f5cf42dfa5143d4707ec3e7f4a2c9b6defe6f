@@ -1,0 +1,12 @@
+
+a
+java:S1301	"KReplace this "switch" statement by "if" statements to increase readability.(×î²”
+W
+java:S1854":Remove this useless assignment to local variable "result".(Ì…Áâ8Õžè’Å0
+\
+java:S1854":Remove this useless assignment to local variable "result".(²§’Ñøÿÿÿÿ8Öžè’Å0
+M
+java:S1481"+Remove this unused "result" local variable.(ÑûÃÇûÿÿÿÿ8Úžè’Å0
+m	java:S128
+"LEnd this switch case with an unconditional break, return or throw statement.(ªëÅÞúÿÿÿÿ8Ýžè’Å0
+7	java:S131	""Add a default case to this switch.(×î²”

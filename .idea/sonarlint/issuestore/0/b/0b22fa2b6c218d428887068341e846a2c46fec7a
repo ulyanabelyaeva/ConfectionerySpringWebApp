@@ -1,0 +1,27 @@
+
+ˆ
+java:S1192o"lDefine a constant instead of duplicating this literal "Ğ½Ğµ ÑƒĞ´Ğ°Ğ»Ğ¾ÑÑŒ ÑĞ¾Ğ·Ğ´Ğ°Ñ‚ÑŒ Ñ„Ğ°Ğ¹Ğ»" 3 times.(Â‹!8üÇÛ’Å0
+i
+java:S1192F"LDefine a constant instead of duplicating this literal "put_product" 4 times.(½×Ê8ıÇÛ’Å0
+k
+java:S1192h"IDefine a constant instead of duplicating this literal "user.dir" 3 times.(é££èøÿÿÿÿ8ıÇÛ’Å0
+u
+java:S1192v"XDefine a constant instead of duplicating this literal "redirect:/admin/catalog" 5 times.(ÌŠÒÖ8şÇÛ’Å0
+k
+java:S1192("IDefine a constant instead of duplicating this literal "tempUser" 3 times.(Ç€Íûÿÿÿÿ8şÇÛ’Å0
+Š
+java:S1192h"hDefine a constant instead of duplicating this literal "\\src\\main\\resources\\static\\image\\" 3 times.(é££èøÿÿÿÿ8şÇÛ’Å0
+p
+java:S2259"RA "NullPointerException" could be thrown; "getOriginalFilename()" can return null.(æ—æğ8«ÈÛ’Å0
+y
+java:S4144–"[Update this method so that its implementation is not identical to "deleteItem" on line 144.(§îæ8­ÈÛ’Å0
+]
+java:S4684f"@Replace this persistent entity with a simple POJO or DTO object.(Åæä…8¾ÈÛ’Å0
+T	java:S106o"9Replace this use of System.out or System.err by a logger.(Â‹!8ÄÈÛ’Å0
+b
+java:S4684z"@Replace this persistent entity with a simple POJO or DTO object.(Ş¾öœûÿÿÿÿ8ÆÈÛ’Å0
+U	java:S106ƒ"9Replace this use of System.out or System.err by a logger.(Â‹!8ÉÈÛ’Å0
+[	java:S106Š"9Replace this use of System.out or System.err by a logger.(×”îØùÿÿÿÿ8ÊÈÛ’Å0
+^
+java:S4684œ"@Replace this persistent entity with a simple POJO or DTO object.(¬ö¸™8ÎÈÛ’Å0
+U	java:S106©"9Replace this use of System.out or System.err by a logger.(Â‹!8ÒÈÛ’Å0
