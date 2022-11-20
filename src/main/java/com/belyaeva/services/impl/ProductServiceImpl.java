@@ -21,30 +21,36 @@ public class ProductServiceImpl implements ProductService {
     private ProductTypeServiceImpl productTypeServiceImpl;
 
     public List<Product> getAllProducts(){
-        return productRepository.findAll().stream().filter(Product::isStatus).collect(Collectors.toList());
+        return productRepository.findAll().stream()
+            .filter(Product::isStatus)
+            .collect(Collectors.toList());
     }
     public List<Product> getProductByProductTypeId(Long id){
         List<Product> products;
         if (id == 1){
             products = getAllProducts();
         } else {
-            products = productRepository.findAllByProductTypeId(id).stream().filter(Product::isStatus).collect(Collectors.toList());
+            products = productRepository.findAllByProductTypeId(id).stream()
+                .filter(Product::isStatus)
+                .collect(Collectors.toList());
         }
         return products;
     }
 
+    // FIX: Refactor with ProductModel for presentation layer
     public Product getProductById(Long id){
         return productRepository.findById(id).orElse(null);
     }
 
     public Product createImage(Product product){
         String name = product.getIcon().getOriginalFilename();
+        // FIX: Move path to application properties/yaml
         String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\image\\" + name;
-        File newImage = new File(filePath);
-        try {
+        try (File newImage = new File(filePath)) {
             product.getIcon().transferTo(newImage);
             product.setImage(product.getIcon().getOriginalFilename());
         } catch (IOException e) {
+            // FIX: Use logger
             System.out.println("не удалось создать файл");
         }
         return product;
@@ -59,7 +65,9 @@ public class ProductServiceImpl implements ProductService {
 
     public Product changeProduct(Product product){
 
+        // FIX: Create Service layer model for Product and add method for checking image
         if (product.getIcon() != null){ //old or new image
+            // FIX: Possible nullptr
             product.setImage(productRepository.findById(product.getId()).orElse(null).getImage());
         } else {
             createImage(product);
@@ -74,5 +82,4 @@ public class ProductServiceImpl implements ProductService {
         product.setStatus(false);
         productRepository.save(product);
     }
-
 }

@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public boolean saveUser(User user) {
+        // FIX: Return Optional
         User userFromDB = (User) userRepository.findByPhone(user.getUsername());
 
         if (userFromDB != null) {

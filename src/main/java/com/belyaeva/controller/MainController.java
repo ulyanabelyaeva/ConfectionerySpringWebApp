@@ -17,13 +17,7 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    private ProductTypeServiceImpl productTypeServiceImpl;
-
-    @Autowired
-    private ProductServiceImpl productServiceImpl;
-
-    @Autowired
-    private UserServiceImpl userServiceImpl;
+    private ProductFacade<Model, Model> productFacade;
 
     @Autowired
     private CartItemServiceImpl cartItemServiceImpl;
@@ -38,22 +32,8 @@ public class MainController {
 
     @GetMapping("/catalog")
     public String getProducts(Model model){
-        List<ProductType> productTypeList = productTypeServiceImpl.getProductTypeList();
-        List<Product> productList = productServiceImpl.getAllProducts();
-
-        User user = userServiceImpl.getTempUser();
-        model.addAttribute("tempUser", user);
-        model.addAttribute("productTypes", productTypeList);
-        model.addAttribute("products", productList);
-
-        if (user != null){
-            Role role = user.getRoles().stream().filter(r -> r.getName().equals("USER")).findFirst().orElse(null);
-            if (role != null)
-                return "catalog";
-            else
-                return "redirect:/admin/catalog";
-        } else
-            return "catalog";
+        Model model = productFacade.getProducts(model);
+        return isAdmin() ? "redirect:/admin/catalog" : "catalog";
     }
 
     @GetMapping("/catalog/{id}")
@@ -66,6 +46,7 @@ public class MainController {
         model.addAttribute("productTypes", productTypeList);
         model.addAttribute("tempUser", user);
 
+        // FIX: Use isAdmin method
         if (user != null){
             Role role = user.getRoles().stream().filter(r -> r.getName().equals("USER")).findFirst().orElse(null);
             if (role != null)
@@ -75,6 +56,24 @@ public class MainController {
         } else
             return "catalog";
     }
+
+
+    private boolean isAdmin() {
+        // TODO: Get user ...
+        
+        if (user == null) {
+            return false;
+        }
+
+        Role role = user.getRoles().stream()
+            .filter(r -> r.getName().equals("USER"))
+            .findFirst()
+            .orElse(null);
+
+        return role == null;
+    }
+
+
 
     @GetMapping("/catalog/catalog/{id}")
     public String redirectCatalog(@PathVariable("id") Long id){
