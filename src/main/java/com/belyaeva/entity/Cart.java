@@ -14,7 +14,11 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cart {
+public class CartEntity {
+
+    public static Cart fromUser(User user) {
+        return new Cart(user, false, false, 0);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,10 +42,4 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
     private List<CartItem> items;
-    public Cart(User user) {
-        this.user = user;
-        this.status = false;
-        this.ready = false;
-        this.cost = 0;
-    }
 }

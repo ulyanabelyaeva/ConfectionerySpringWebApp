@@ -51,3 +51,38 @@ public class LoginController {
 
     }
 }
+
+public interface Strategy<T, U> {
+    Optional<U> execute(T model);
+}
+
+public class UserAdminStrategy implements Strategy<User, String> {
+    public Optional<String> execute(User model) {
+        if (model.someData() == getAnotherData()) {
+            return Optional.of("redirect:/admin/path");
+        }
+        return Optional.ofNullable(null);
+    }
+}
+
+public class UserCustomerStrategy<User, String> {
+    public String execute(User model) {
+        return "customer"
+    }
+}
+
+public class Controller {
+
+    @Autowired
+    private final List<Strategy<User, String>> strategies;
+
+    public void main(User user) {
+        String result;
+        for (var strategy : strategies) {
+            result = strategy.execute(user); 
+            if (result != null) {
+                return result;
+            }
+        }
+    }
+}

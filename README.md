@@ -1,12 +1,16 @@
-Для работы с этим приложением сконируйте проект. 
-Создайте БД в MySQL c именем confectionerydb.
-Запустите проект.
-Запустите следующие скрипты в MySQL.
-Зарегистрируйтесь, чтобы войти, как пользователь.
-Чтобы войти, как администратор: 89180000000 admin.
-Для запуска тестов: создайте БД в MySQL c именем confectionerydbtest.
+# ConfectionerySpringWebApp
 
-Скрипт 1:
+## How to start
+* Для работы с этим приложением сконируйте проект. 
+* Создайте БД в MySQL c именем confectionerydb.
+* Запустите проект.
+* Запустите следующие скрипты в MySQL.
+* Зарегистрируйтесь, чтобы войти, как пользователь.
+* Чтобы войти, как администратор: 89180000000 admin.
+* Для запуска тестов: создайте БД в MySQL c именем confectionerydbtest.
+
+### Скрипт 1:
+```SQL
 insert into `product_type` (name) values ("Все десерты");
 insert into `product_type` (name) values ("Бенто торты");
 insert into `product_type` (name) values ("Торты");
@@ -14,8 +18,10 @@ insert into `product_type` (name) values ("Пироженые");
 insert into `product_type` (name) values ("Капкейки");
 insert into `product_type` (name) values ("Макаронсы");
 insert into `product_type` (name) values ("Наборы");
+```
 
-Скрипт 2:
+### Скрипт 2:
+```SQL
 insert into `product` (image, name, price, product_type_id) values ("cake11.jpg", "Бенто торт с надписью", 1500, 2);
 insert into `product` (image, name, price, product_type_id) values ("cake3.jpg", "Бенто торт с надписью", 1500, 2);
 insert into `product` (image, name, price, product_type_id) values ("cake1.png", "Бенто торт с пейзажем", 1500, 2);
@@ -54,8 +60,11 @@ insert into `product` (image, name, price, product_type_id) values ("minicake2.j
 insert into `product` (image, name, price, product_type_id) values ("minicake3.jpg", "Пироженое Наполеон", 150, 4);
 insert into `product` (image, name, price, product_type_id) values ("minicake5.jpg", "Пироженое", 150, 4);
 update product set status = true
+```
 
-Скрипт 3:
+### Скрипт 3:
+```SQL
 insert into roles (name) values ('ADMIN');
 insert into users (first_name, password, phone) values ('Администратор', '$2a$12$FJBS1Dd6xGuDSQgY4tpNROZQSy4ds8d2MRyCP5CAwa4TLcrzGo712', '89180000000');
 insert into user_roles (user_id, roles_id) values (3, 3);
+```

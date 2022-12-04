@@ -10,8 +10,5 @@ import java.util.List;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
-
-    @Query("SELECT c FROM CartItem c WHERE c.cart.Id =:param")
-    List<CartItem> findAllByCartId(@Param("param") Long id);
-
+    List<CartItem> findAllByCartId(Long id);
 }
