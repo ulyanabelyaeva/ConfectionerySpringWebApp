@@ -1,11 +1,11 @@
 package com.belyaeva.services.abstractions;
 
-import com.belyaeva.entity.User;
+import com.belyaeva.entity.UserEntity;
 
 public interface UserService {
 
-    User getTempUser();
+    UserEntity getTempUser();
 
-    boolean saveUser(User user);
+    boolean saveUser(UserEntity user);
 
 }

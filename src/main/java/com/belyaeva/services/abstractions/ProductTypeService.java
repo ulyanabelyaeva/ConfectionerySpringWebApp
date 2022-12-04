@@ -1,13 +1,13 @@
 package com.belyaeva.services.abstractions;
 
-import com.belyaeva.entity.ProductType;
+import com.belyaeva.entity.ProductTypeEntity;
 
 import java.util.List;
 
 public interface ProductTypeService {
 
-    List<ProductType> getProductTypeList();
+    List<ProductTypeEntity> getProductTypeList();
 
-    ProductType getProductTypeByName(String name);
+    ProductTypeEntity getProductTypeByName(String name);
 
 }

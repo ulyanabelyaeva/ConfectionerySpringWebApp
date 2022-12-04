@@ -7,19 +7,15 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.io.File;
 
 
-/**
- * status - delete product from catalog
- * */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "product")
-public class Product {
+public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +24,9 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(targetEntity = ProductType.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = ProductTypeEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_type_id")
-    private ProductType productType;
+    private ProductTypeEntity productType;
 
     @Column(name = "price")
     private int price;

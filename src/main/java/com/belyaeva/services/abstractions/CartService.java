@@ -1,22 +1,22 @@
 package com.belyaeva.services.abstractions;
 
-import com.belyaeva.entity.Cart;
+import com.belyaeva.entity.CartEntity;
 
 import java.util.List;
 
 public interface CartService {
 
-    Cart getCartByUserId(Long id);
+    CartEntity getCartByUserId(Long id);
 
-    Cart getCartById(Long id);
+    CartEntity getCartById(Long id);
 
-    void addNewCart(Cart cart);
+    void addNewCart(CartEntity cartEntity);
 
-    List<Cart> getOrderList(Long id);
+    List<CartEntity> getOrderList(Long id);
 
-    List<Cart> getUnreadyOrderList();
+    List<CartEntity> getUnreadyOrderList();
 
-    void moveOldCartToOrdersAndCreteNewCart(Cart cart);
+    void moveOldCartToOrdersAndCreteNewCart(CartEntity cartEntity);
 
-    void moveOrderToReady(Cart cart);
+    void moveOrderToReady(CartEntity cartEntity);
 }

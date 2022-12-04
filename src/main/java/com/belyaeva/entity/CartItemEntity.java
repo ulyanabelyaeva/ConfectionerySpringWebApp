@@ -1,9 +1,6 @@
 package com.belyaeva.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,9 +8,10 @@ import javax.persistence.*;
 @Table(name = "cartItem")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartItem {
+public class CartItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,14 +19,10 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private ProductEntity product;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
-    private Cart cart;
+    private CartEntity cart;
 
-    public CartItem(Product product, Cart cart) {
-        this.product = product;
-        this.cart = cart;
-    }
 }

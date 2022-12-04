@@ -1,12 +1,10 @@
 package com.belyaeva.controller;
 
-import com.belyaeva.entity.Cart;
-import com.belyaeva.entity.Product;
-import com.belyaeva.entity.ProductType;
-import com.belyaeva.entity.User;
+import com.belyaeva.entity.CartEntity;
+import com.belyaeva.entity.ProductEntity;
+import com.belyaeva.services.abstractions.ProductFacade;
 import com.belyaeva.services.impl.CartServiceImpl;
 import com.belyaeva.services.impl.ProductServiceImpl;
-import com.belyaeva.services.impl.ProductTypeServiceImpl;
 import com.belyaeva.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,16 +23,15 @@ public class AdminController {
     private UserServiceImpl userServiceImpl;
 
     @Autowired
-    private ProductServiceImpl productServiceImpl;
+    private ProductFacade<Model, Model> productFacade;
 
     @Autowired
-    private ProductTypeServiceImpl productTypeServiceImpl;
-
+    private ProductServiceImpl productServiceImpl;
 
     @GetMapping("/admin")
     public String getAdminPage(Model model){
         model.addAttribute("tempUser", userServiceImpl.getTempUser());
-        List<Cart> orders = cartServiceImpl.getUnreadyOrderList();
+        List<CartEntity> orders = cartServiceImpl.getUnreadyOrderList();
         model.addAttribute("orders", orders);
         return "admin";
     }
@@ -42,51 +39,35 @@ public class AdminController {
     @PostMapping("/admin")
     public String reformOrder(@RequestParam("btn") String btn, @RequestParam("cartId") Long cartId, Model model){
         if (btn.equals("ready")){
-            Cart cart = cartServiceImpl.getCartById(cartId);
-            cartServiceImpl.moveOrderToReady(cart);
+            CartEntity cartEntity = cartServiceImpl.getCartById(cartId);
+            cartServiceImpl.moveOrderToReady(cartEntity);
         }
         return "redirect:/admin";
     }
 
     @GetMapping("/admin/catalog")
     public String getAdminCatalog(@RequestParam(defaultValue="-1") Long id, Model model){
-        List<ProductType> productTypeList = productTypeServiceImpl.getProductTypeList();
-        List<Product> productList = productServiceImpl.getAllProducts();
-
-        User user = userServiceImpl.getTempUser();
-        model.addAttribute("tempUser", user);
-        model.addAttribute("productTypes", productTypeList);
-        model.addAttribute("products", productList);
-
-
-        model.addAttribute("add_product", new Product());
-        if (id != -1){ //show put part or not
-            Product p = productServiceImpl.getProductById(id);
-            p.setNameProductType(p.getProductType().getName());
-            model.addAttribute("put_product", p);
-        }
-        else
-            model.addAttribute("put_product", null);
-
+        productFacade.getProductsAndUser(model);
+        showPutOrAdd(id, model);
+        return "catalog_admin";
+    }
+    @GetMapping("/admin/catalog/{id}")
+    public String getAdminCatalogByProductTypeId(@RequestParam(defaultValue="-1") Long id, @PathVariable("id") Long idSearch,Model model){
+        productFacade.getProductsByTypeAndUser(idSearch, model);
+        showPutOrAdd(id,model);
         return "catalog_admin";
     }
 
-    @GetMapping("/admin/catalog/{id}")
-    public String getAdminCatalogByProductTypeId(@RequestParam(defaultValue="-1") Long id, @PathVariable("id") Long idSearch,Model model){
-        List<Product> products = productServiceImpl.getProductByProductTypeId(idSearch);
-        model.addAttribute("products", products);
-        List<ProductType> productTypeList = productTypeServiceImpl.getProductTypeList();
-        model.addAttribute("productTypes", productTypeList);
-        model.addAttribute("tempUser", userServiceImpl.getTempUser());
-
-
-        model.addAttribute("add_product", new Product());
-        if (id != -1)
-            model.addAttribute("put_product", productServiceImpl.getProductById(id));
-        else
+    private void showPutOrAdd(Long id, Model model) {
+        if (id != -1){
+            ProductEntity product = productServiceImpl.getProductById(id);
+            product.setNameProductType(product.getProductType().getName());
+            model.addAttribute("put_product", product);
+        }
+        else{
+            model.addAttribute("add_product", new ProductEntity());
             model.addAttribute("put_product", null);
-
-        return "catalog_admin";
+        }
     }
 
     @GetMapping("/admin/catalog/catalog/{id}")
@@ -95,14 +76,14 @@ public class AdminController {
     }
 
     @PostMapping("/admin/catalog")
-    public String addNewProduct(@ModelAttribute("add_product") Product product){
-        productServiceImpl.addNewProduct(product);
+    public String addNewProduct(@ModelAttribute("add_product") ProductEntity productEntity){
+        productServiceImpl.addNewProduct(productEntity);
         return "redirect:/admin/catalog";
     }
 
     @PostMapping("/admin/catalog/{id}")
-    public String addNewProductIfOnProductTypeChoice(@ModelAttribute("add_product") Product product){
-        productServiceImpl.addNewProduct(product);
+    public String addNewProductIfOnProductTypeChoice(@ModelAttribute("add_product") ProductEntity productEntity){
+        productServiceImpl.addNewProduct(productEntity);
         return "redirect:/admin/catalog";
     }
 
@@ -119,14 +100,14 @@ public class AdminController {
     }
 
     @PutMapping("/admin/catalog")
-    public String putProduct(@ModelAttribute("put_product") Product product){
-        productServiceImpl.changeProduct(product);
+    public String putProduct(@ModelAttribute("put_product") ProductEntity productEntity){
+        productServiceImpl.changeProduct(productEntity);
         return "redirect:/admin/catalog";
     }
 
     @PutMapping("/admin/catalog/{id}")
-    public String putProductIfOnProductTypeChoice(@ModelAttribute("put_product") Product product){
-        productServiceImpl.changeProduct(product);
+    public String putProductIfOnProductTypeChoice(@ModelAttribute("put_product") ProductEntity productEntity){
+        productServiceImpl.changeProduct(productEntity);
         return "redirect:/admin/catalog/{id}";
     }
 

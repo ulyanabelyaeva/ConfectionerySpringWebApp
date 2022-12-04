@@ -5,9 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User implements UserDetails {
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,20 +37,7 @@ public class User implements UserDetails {
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id", referencedColumnName = "id"))
-    private Set<Role> roles;
-
-    public User(String phone, String password, String passwordConfirm, String firstName) {
-        this.phone = phone;
-        this.password = password;
-        this.firstName = firstName;
-        this.passwordConfirm = passwordConfirm;
-    }
-
-    public User(String phone, String password, String firstName) {
-        this.phone = phone;
-        this.password = password;
-        this.firstName = firstName;
-    }
+    private Set<RoleEntity> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -92,5 +77,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }

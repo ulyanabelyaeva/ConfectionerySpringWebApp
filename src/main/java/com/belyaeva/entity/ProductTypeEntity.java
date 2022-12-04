@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "product_type")
-public class ProductType {
+public class ProductTypeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

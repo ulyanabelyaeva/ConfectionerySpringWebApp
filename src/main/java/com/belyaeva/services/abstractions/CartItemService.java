@@ -1,12 +1,12 @@
 package com.belyaeva.services.abstractions;
 
-import com.belyaeva.entity.CartItem;
+import com.belyaeva.entity.CartItemEntity;
 
 public interface CartItemService {
 
-    CartItem getItemById(Long id);
+    CartItemEntity getItemById(Long id);
 
-    void addNewItem(CartItem cartItem);
+    void addNewItem(CartItemEntity cartItemEntity);
 
     void deleteItemById(Long id);
 

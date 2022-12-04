@@ -1,2 +1,2 @@
 delete from product_type;
-delete from product;
+delete from productEntity;

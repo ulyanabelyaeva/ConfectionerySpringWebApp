@@ -1,7 +1,7 @@
 package com.belyaeva.services.impl;
 
-import com.belyaeva.entity.Role;
-import com.belyaeva.entity.User;
+import com.belyaeva.entity.RoleEntity;
+import com.belyaeva.entity.UserEntity;
 import com.belyaeva.repository.UserRepository;
 import com.belyaeva.services.abstractions.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,21 +23,21 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public boolean saveUser(User user) {
+    public boolean saveUser(UserEntity user) {
         // FIX: Return Optional
-        User userFromDB = (User) userRepository.findByPhone(user.getUsername());
+        UserEntity userFromDB = userRepository.findByPhone(user.getUsername());
 
         if (userFromDB != null) {
             return false;
         }
 
-        user.setRoles(Collections.singleton(new Role("USER")));
+        user.setRoles(Collections.singleton(new RoleEntity("USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
     }
 
-    public User getTempUser(){
+    public UserEntity getTempUser(){
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
         Object principal = authentication.getPrincipal();

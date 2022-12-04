@@ -1,5 +1,6 @@
 package com.belyaeva.controller;
 
+import com.belyaeva.entity.CartEntity;
 import com.belyaeva.services.impl.CartItemServiceImpl;
 import com.belyaeva.services.impl.CartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.belyaeva.services.impl.UserServiceImpl;
-import com.belyaeva.entity.User;
-import com.belyaeva.entity.Cart;
+import com.belyaeva.entity.UserEntity;
 
 @Controller
 public class CartController {
@@ -28,11 +28,11 @@ public class CartController {
     @GetMapping("/user/cart")
     public String getCart(Model model){
 
-        User user = userServiceImpl.getTempUser();
+        UserEntity user = userServiceImpl.getTempUser();
 
-        Cart cart = cartServiceImpl.getCartByUserId(user.getId());
+        CartEntity cartEntity = cartServiceImpl.getCartByUserId(user.getId());
         model.addAttribute("tempUser", user);
-        model.addAttribute("cart", cart);
+        model.addAttribute("cart", cartEntity);
 
         return "cart";
     }
@@ -40,15 +40,20 @@ public class CartController {
     @PostMapping("/user/cart")
     public String deleteItem(@RequestParam("btn") String btn, Model model){
         if (btn.equals("pay")){
-            User user = userServiceImpl.getTempUser();
-            Cart cart = cartServiceImpl.getCartByUserId(user.getId());
-            cartServiceImpl.moveOldCartToOrdersAndCreteNewCart(cart);
-            cartServiceImpl.addNewCart(new Cart(user));
+            UserEntity user = userServiceImpl.getTempUser();
+            CartEntity cartEntity = cartServiceImpl.getCartByUserId(user.getId());
+            cartServiceImpl.moveOldCartToOrdersAndCreteNewCart(cartEntity);
+            cartServiceImpl.addNewCart(CartEntity.builder()
+                    .user(user)
+                    .status(false)
+                    .ready(false)
+                    .cost(0)
+                    .build());
             model.addAttribute("tempUser", user);
         } else {
             Long idItem = Long.parseLong(btn);
-            Cart cart = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId());
-            cart.setCost(cart.getCost() - cartItemServiceImpl.getItemById(idItem).getProduct().getPrice());
+            CartEntity cartEntity = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId());
+            cartEntity.setCost(cartEntity.getCost() - cartItemServiceImpl.getItemById(idItem).getProduct().getPrice());
             cartItemServiceImpl.deleteItemById(idItem);
         }
         return "redirect:/user/cart";

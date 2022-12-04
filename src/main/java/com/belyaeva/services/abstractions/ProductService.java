@@ -1,20 +1,20 @@
 package com.belyaeva.services.abstractions;
 
-import com.belyaeva.entity.Product;
+import com.belyaeva.entity.ProductEntity;
 
 import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getAllProducts();
+    List<ProductEntity> getAllProducts();
 
-    List<Product> getProductByProductTypeId(Long id);
+    List<ProductEntity> getProductByProductTypeId(Long id);
 
-    Product getProductById(Long id);
+    ProductEntity getProductById(Long id);
 
-    Product addNewProduct(Product product);
+    ProductEntity addNewProduct(ProductEntity productEntity);
 
-    Product changeProduct(Product product);
+    ProductEntity changeProduct(ProductEntity productEntity);
 
     void deleteProduct(Long id);
 }

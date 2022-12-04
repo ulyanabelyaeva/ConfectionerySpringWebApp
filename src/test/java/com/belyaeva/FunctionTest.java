@@ -1,7 +1,7 @@
 package com.belyaeva;
 
-import com.belyaeva.entity.CartItem;
-import com.belyaeva.entity.Product;
+import com.belyaeva.entity.CartItemEntity;
+import com.belyaeva.entity.ProductEntity;
 import com.belyaeva.services.impl.CartItemServiceImpl;
 import com.belyaeva.services.impl.CartServiceImpl;
 import com.belyaeva.services.impl.ProductServiceImpl;
@@ -58,9 +58,12 @@ public class FunctionTest {
     @Test
     public void addToCart(){
         int before = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId()).getItems().size();
-        Product product = productServiceImpl.getProductById(1L);
-        CartItem cartItem = new CartItem(product, cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId()));
-        cartItemServiceImpl.addNewItem(cartItem);
+        ProductEntity productEntity = productServiceImpl.getProductById(1L);
+        CartItemEntity cartItemEntity = CartItemEntity.builder()
+                .product(productEntity)
+                .cart(cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId()))
+                .build();
+        cartItemServiceImpl.addNewItem(cartItemEntity);
         int after = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId()).getItems().size();
 
         Assertions.assertSame(before +  1, after);
@@ -69,9 +72,12 @@ public class FunctionTest {
     //оплата заказа
     @Test
     public void payOrder() throws Exception {
-        Product product = productServiceImpl.getProductById(1L);
-        CartItem cartItem = new CartItem(product, cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId()));
-        cartItemServiceImpl.addNewItem(cartItem);
+        ProductEntity productEntity = productServiceImpl.getProductById(1L);
+        CartItemEntity cartItemEntity = CartItemEntity.builder()
+                .product(productEntity)
+                .cart(cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId()))
+                .build();
+        cartItemServiceImpl.addNewItem(cartItemEntity);
 
         this.mockMvc.perform(post("/user/cart").param("btn", "pay").with(csrf()))
                 .andDo(print())
