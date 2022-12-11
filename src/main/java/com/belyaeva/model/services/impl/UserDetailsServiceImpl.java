@@ -1,8 +1,8 @@
-package com.belyaeva.services.impl;
+package com.belyaeva.model.services.impl;
 
-import com.belyaeva.entity.RoleEntity;
-import com.belyaeva.entity.UserEntity;
-import com.belyaeva.repository.UserRepository;
+import com.belyaeva.model.entity.RoleEntity;
+import com.belyaeva.model.entity.UserEntity;
+import com.belyaeva.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

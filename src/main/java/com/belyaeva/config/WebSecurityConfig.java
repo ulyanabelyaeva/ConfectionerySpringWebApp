@@ -1,9 +1,8 @@
 package com.belyaeva.config;
 
-import com.belyaeva.services.impl.UserDetailsServiceImpl;
+import com.belyaeva.model.services.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-@Import({RequestConfig.class})
+@Import({RequestConfig.class, MvcConfig.class})
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -35,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/", "/catalog/**").permitAll()
                     .antMatchers("/styles/**", "/image/**", "/js/**").permitAll()
                     //Все остальные страницы требуют аутентификации
-                    .anyRequest().authenticated()
+                    //.anyRequest().authenticated()
                 .and()
                     //Настройка для входа в систему
                     .formLogin()
@@ -50,7 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .invalidateHttpSession(true)
                     .permitAll()
                     .logoutSuccessUrl("/catalog");
-
     }
 
     @Autowired

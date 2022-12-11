@@ -1,11 +1,11 @@
 package com.belyaeva.controller;
 
-import com.belyaeva.entity.CartEntity;
-import com.belyaeva.entity.ProductEntity;
-import com.belyaeva.services.abstractions.ProductFacade;
-import com.belyaeva.services.impl.CartServiceImpl;
-import com.belyaeva.services.impl.ProductServiceImpl;
-import com.belyaeva.services.impl.UserServiceImpl;
+import com.belyaeva.model.entity.CartEntity;
+import com.belyaeva.model.entity.ProductEntity;
+import com.belyaeva.model.services.abstractions.ProductFacade;
+import com.belyaeva.model.services.impl.CartServiceImpl;
+import com.belyaeva.model.services.impl.ProductServiceImpl;
+import com.belyaeva.model.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

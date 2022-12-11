@@ -1,8 +1,8 @@
-package com.belyaeva.services.impl;
+package com.belyaeva.model.services.impl;
 
-import com.belyaeva.entity.CartItemEntity;
-import com.belyaeva.repository.CartItemRepository;
-import com.belyaeva.services.abstractions.CartItemService;
+import com.belyaeva.model.entity.CartItemEntity;
+import com.belyaeva.model.repository.CartItemRepository;
+import com.belyaeva.model.services.abstractions.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

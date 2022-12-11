@@ -1,6 +1,6 @@
-package com.belyaeva.repository;
+package com.belyaeva.model.repository;
 
-import com.belyaeva.entity.ProductTypeEntity;
+import com.belyaeva.model.entity.ProductTypeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

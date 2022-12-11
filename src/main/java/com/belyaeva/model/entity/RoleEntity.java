@@ -1,4 +1,4 @@
-package com.belyaeva.entity;
+package com.belyaeva.model.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

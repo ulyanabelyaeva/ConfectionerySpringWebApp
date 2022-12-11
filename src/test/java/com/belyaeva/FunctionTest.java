@@ -1,11 +1,11 @@
 package com.belyaeva;
 
-import com.belyaeva.entity.CartItemEntity;
-import com.belyaeva.entity.ProductEntity;
-import com.belyaeva.services.impl.CartItemServiceImpl;
-import com.belyaeva.services.impl.CartServiceImpl;
-import com.belyaeva.services.impl.ProductServiceImpl;
-import com.belyaeva.services.impl.UserServiceImpl;
+import com.belyaeva.model.entity.CartItemEntity;
+import com.belyaeva.model.entity.ProductEntity;
+import com.belyaeva.model.services.impl.CartItemServiceImpl;
+import com.belyaeva.model.services.impl.CartServiceImpl;
+import com.belyaeva.model.services.impl.ProductServiceImpl;
+import com.belyaeva.model.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

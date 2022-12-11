@@ -1,10 +1,10 @@
-package com.belyaeva.services.impl;
+package com.belyaeva.model.services.impl;
 
-import com.belyaeva.entity.CartEntity;
-import com.belyaeva.services.abstractions.CartService;
+import com.belyaeva.model.entity.CartEntity;
+import com.belyaeva.model.services.abstractions.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.belyaeva.repository.CartRepository;
+import com.belyaeva.model.repository.CartRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

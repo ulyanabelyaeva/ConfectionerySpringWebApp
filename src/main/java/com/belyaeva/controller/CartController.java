@@ -1,8 +1,8 @@
 package com.belyaeva.controller;
 
-import com.belyaeva.entity.CartEntity;
-import com.belyaeva.services.impl.CartItemServiceImpl;
-import com.belyaeva.services.impl.CartServiceImpl;
+import com.belyaeva.model.entity.CartEntity;
+import com.belyaeva.model.services.impl.CartItemServiceImpl;
+import com.belyaeva.model.services.impl.CartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.belyaeva.services.impl.UserServiceImpl;
-import com.belyaeva.entity.UserEntity;
+import com.belyaeva.model.services.impl.UserServiceImpl;
+import com.belyaeva.model.entity.UserEntity;
 
 @Controller
 public class CartController {

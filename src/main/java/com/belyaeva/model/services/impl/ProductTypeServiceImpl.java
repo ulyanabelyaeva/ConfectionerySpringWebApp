@@ -1,8 +1,8 @@
-package com.belyaeva.services.impl;
+package com.belyaeva.model.services.impl;
 
-import com.belyaeva.entity.ProductTypeEntity;
-import com.belyaeva.repository.ProductTypeRepository;
-import com.belyaeva.services.abstractions.ProductTypeService;
+import com.belyaeva.model.entity.ProductTypeEntity;
+import com.belyaeva.model.repository.ProductTypeRepository;
+import com.belyaeva.model.services.abstractions.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

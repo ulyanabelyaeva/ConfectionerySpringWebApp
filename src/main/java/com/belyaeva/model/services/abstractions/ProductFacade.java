@@ -1,4 +1,4 @@
-package com.belyaeva.services.abstractions;
+package com.belyaeva.model.services.abstractions;
 
 public interface ProductFacade<T, U> {
     T getProductsAndUser(U model);

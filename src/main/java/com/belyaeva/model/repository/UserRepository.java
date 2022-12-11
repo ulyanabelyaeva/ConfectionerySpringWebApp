@@ -1,6 +1,6 @@
-package com.belyaeva.repository;
+package com.belyaeva.model.repository;
 
-import com.belyaeva.entity.UserEntity;
+import com.belyaeva.model.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

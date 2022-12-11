@@ -1,6 +1,6 @@
-package com.belyaeva.services.abstractions;
+package com.belyaeva.model.services.abstractions;
 
-import com.belyaeva.entity.CartItemEntity;
+import com.belyaeva.model.entity.CartItemEntity;
 
 public interface CartItemService {
 

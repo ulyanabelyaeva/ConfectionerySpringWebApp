@@ -13,3 +13,5 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
         ddl-auto: update
+
+storage.location: "/image"

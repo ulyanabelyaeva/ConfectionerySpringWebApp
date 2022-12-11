@@ -1,6 +1,6 @@
-package com.belyaeva.services.abstractions;
+package com.belyaeva.model.services.abstractions;
 
-import com.belyaeva.entity.UserEntity;
+import com.belyaeva.model.entity.UserEntity;
 
 public interface UserService {
 

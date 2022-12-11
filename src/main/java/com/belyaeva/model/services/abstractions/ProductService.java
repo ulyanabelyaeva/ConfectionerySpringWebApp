@@ -1,6 +1,6 @@
-package com.belyaeva.services.abstractions;
+package com.belyaeva.model.services.abstractions;
 
-import com.belyaeva.entity.ProductEntity;
+import com.belyaeva.model.entity.ProductEntity;
 
 import java.util.List;
 
